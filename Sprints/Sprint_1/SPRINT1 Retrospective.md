@@ -16,7 +16,7 @@
 	* Note :- implenting the main classes + mechanics + GUi were estimated fairly accurately
 
 ##Trello Screenshot
-![trello_mid_screenshot](sprint_1_mid_trello.jpg)
+![trello_mid_screenshot](Sprints/Sprint_1/sprint_1_mid_trello.jpg)
 
 ##Toggl Report
 + A Toogl time report PDF can be found in this folder

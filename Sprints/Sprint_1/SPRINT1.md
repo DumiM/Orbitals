@@ -29,4 +29,4 @@
 	* Write some suitable tests in Xunit - 3 hours
 
 ##Trello Screenshot
-![trello_screenshot](sprint_1_start_trello.jpg)
+![trello_screenshot](Sprints/Sprint_1/sprint_1_start_trello.jpg)

@@ -24,4 +24,4 @@
 	* Update the ReadMe file - 0.25 hours
 
 ##Trello screenshot
-![trello_screenshot](sprint_2_start_trello.jpg)
+![trello_screenshot](Sprints/Sprint_2/sprint_2_start_trello.jpg)
