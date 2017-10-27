@@ -1,23 +1,21 @@
 ﻿using System.Collections.Generic;
 using SwinGameSDK;
-using static System.Math;
 
 namespace MyGame
 {
     public class Game
     {
-        public Vector2D MousePos;
-
         //to keep track of time
         private readonly Timer _gameTime;
 
-        private uint _lastTicks;
-
         private readonly bool paused;
 
-        public List<SpaceEntity> SpaceEntities;
+        private uint _lastTicks;
 
         public Input input;
+        public Vector2D MousePos;
+
+        public List<SpaceEntity> SpaceEntities;
 
         public Game()
         {
@@ -50,7 +48,9 @@ namespace MyGame
 
             _lastTicks = SwinGame.TimerTicks(_gameTime);
         }
-        
+
+        public bool Running { get; private set; }
+
 
         public void Update()
         {
@@ -98,29 +98,26 @@ namespace MyGame
                 //if planet collides with blackhole
                 //spaceEntity.alive = false;
                 SpaceEntities.RemoveAll(s => !s.alive); //remove all space entities that arent alive
-
-                
             }
         }
+
         public void Render()
         {
             SwinGame.ClearScreen(Color.White);
 
             if (MousePos != null)
-            {
                 if (!input.released)
                 {
                     SwinGame.FillCircle(Color.Black, MousePos.asPoint2D(), 15);
                 }
                 else
                 {
-                    var vel = (input.vStart - MousePos)/10;
+                    var vel = (input.vStart - MousePos) / 10;
 
                     var p = new Planet(MousePos, Calculate.DegreesToRadians(45 + 40), 0, 15);
                     p.vel = vel;
                     SpaceEntities.Add(p);
                 }
-            }
 
             foreach (var spaceEntity in SpaceEntities)
                 spaceEntity.Render(); //tells each space entity to render itself
@@ -139,7 +136,5 @@ namespace MyGame
             //        spaceEntity.paused = paused;
             //    Console.WriteLine("Paused: " + paused);
         }
-
-        public bool Running { get; private set; }
     }
 }

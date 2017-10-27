@@ -25,6 +25,11 @@ namespace MyGame
             paused = false;
         }
 
+
+        public double Mass { get; }
+
+        public Vector2D Accel { get; set; }
+
         public abstract void Update(double DT);
 
         public void Render()
@@ -34,10 +39,5 @@ namespace MyGame
             //draw itself
             SwinGame.FillCircle(Color.Black, pos.asPoint2D(), (int) Mass);
         }
-
-
-        public double Mass { get; }
-
-        public Vector2D Accel { get; set; }
     }
 }

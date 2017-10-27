@@ -4,12 +4,12 @@ using NUnit.Framework;
 namespace MyGame.Tests
 {
     [TestFixture]
-    public class GameTests
+    public class CalculateTests
     {
         [Test]
         public void DegreesToRadiansTest()
         {
-            var actual = Game.DegreesToRadians(90);
+            var actual = Calculate.DegreesToRadians(90);
             Assert.AreEqual(1.5708, Math.Round(actual, 4));
         }
     }
