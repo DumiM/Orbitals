@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Blackhole.cs" />
+    <Compile Include="src\Calculate.cs" />
     <Compile Include="src\Game.cs" />
     <Compile Include="src\GameMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
