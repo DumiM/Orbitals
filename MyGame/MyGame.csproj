@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Input.cs" />
     <Compile Include="src\Blackhole.cs" />
     <Compile Include="src\Calculate.cs" />
     <Compile Include="src\Game.cs" />

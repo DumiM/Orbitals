@@ -6,6 +6,7 @@ namespace MyGame
 {
     public class Game
     {
+        public Vector2D MousePos;
 
         //to keep track of time
         private readonly Timer _gameTime;
@@ -15,6 +16,8 @@ namespace MyGame
         private readonly bool paused;
 
         public List<SpaceEntity> SpaceEntities;
+
+        public Input input;
 
         public Game()
         {
@@ -29,6 +32,20 @@ namespace MyGame
             SwinGame.OpenGraphicsWindow("Orbitals", 900, 500);
 
             SwinGame.ClearScreen(Color.White);
+
+            input = new Input();
+            MousePos = null;
+
+            //init tests
+            //only for reference untill input is implemented
+            var testv3 = new Vector2D(30, 20);
+            testv3.x = 630;
+            testv3.y = 350;
+            SpaceEntities.Add(new Blackhole(testv3, Calculate.DegreesToRadians(30), 0, 30));
+            var testv2 = new Vector2D(30, 20);
+            testv2.x = 430;
+            testv2.y = 150;
+            SpaceEntities.Add(new Blackhole(testv2, Calculate.DegreesToRadians(30), 0, 30));
 
 
             _lastTicks = SwinGame.TimerTicks(_gameTime);
@@ -63,6 +80,7 @@ namespace MyGame
             double dt = currentTicks - _lastTicks;
             _lastTicks = currentTicks;
 
+            MousePos = input.GetInput();
 
             if (!paused)
             {
@@ -80,13 +98,30 @@ namespace MyGame
                 //if planet collides with blackhole
                 //spaceEntity.alive = false;
                 SpaceEntities.RemoveAll(s => !s.alive); //remove all space entities that arent alive
+
+                
             }
         }
-        
-
         public void Render()
         {
             SwinGame.ClearScreen(Color.White);
+
+            if (MousePos != null)
+            {
+                if (!input.released)
+                {
+                    SwinGame.FillCircle(Color.Black, MousePos.asPoint2D(), 15);
+                }
+                else
+                {
+                    var vel = (input.vStart - MousePos)/10;
+
+                    var p = new Planet(MousePos, Calculate.DegreesToRadians(45 + 40), 0, 15);
+                    p.vel = vel;
+                    SpaceEntities.Add(p);
+                }
+            }
+
             foreach (var spaceEntity in SpaceEntities)
                 spaceEntity.Render(); //tells each space entity to render itself
 

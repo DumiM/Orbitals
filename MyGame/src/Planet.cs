@@ -14,5 +14,14 @@ namespace MyGame
         {
             
         }
+        public override void Update(double DT)
+        {
+            //Doesn't update if paused
+            if (paused)
+                return;
+            //accel = vel/time, therfore:
+            vel += DT * Accel;
+            pos += DT * vel;
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace MyGame
         public bool paused;
 
         public Vector2D pos;
-        private Vector2D vel;
+        public Vector2D vel;
 
         public SpaceEntity(Vector2D aPos, double aAngle, double aPower, double aMass)
         {
@@ -25,18 +25,12 @@ namespace MyGame
             paused = false;
         }
 
-        public void Update(double DT)
-        {
-            //Doesn't update if paused
-            if (paused)
-                return;
-            //accel = vel/time, therfore:
-            vel += DT * Accel;
-            pos += DT * vel;
-        }
+        public abstract void Update(double DT);
 
         public void Render()
         {
+            //SwinGame.HSBColor((float)rand.Next(0, 360), (float)0.5, (float)0.8)
+
             //draw itself
             SwinGame.FillCircle(Color.Black, pos.asPoint2D(), (int) Mass);
         }

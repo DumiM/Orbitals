@@ -10,7 +10,10 @@ namespace MyGame
     {
         public Blackhole(Vector2D aPos, double aAngle, double aPower, double aMass) : base (aPos, aAngle, aPower, aMass)
         {
+        }
 
+        public override void Update(double DT)
+        {
         }
     }
 }
