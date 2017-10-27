@@ -3,7 +3,7 @@
 
 ##New features
 + Accurate gravitational mechanics implemented and working.
-+ A basic GUI implemented to help visualise the physics ![screenshot](prints/Sprint_1/sprint_1_end.jpg)
++ A basic GUI implemented to help visualise the physics ![screenshot](prints/Sprint_1/sprint_1_end.JPG)
 + Unit tests implemented with working folder structures
 
 ##Features failed to add
