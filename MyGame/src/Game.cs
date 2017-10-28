@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SwinGameSDK;
 using System;
+using System.Linq;
 
 namespace MyGame
 {
@@ -43,6 +44,7 @@ namespace MyGame
 
             count = 0;
             
+
 
             //init tests
             //only for reference untill input is implemented
@@ -92,6 +94,19 @@ namespace MyGame
                 //update each space entity's details
                 foreach (var spaceEntity in SpaceEntities)
                     spaceEntity.Update(dt);
+
+                
+                foreach (var p in SpaceEntities.OfType<Planet>())
+                {
+                    foreach(var b in SpaceEntities.OfType<Blackhole>())
+                    {
+                        if ((p.pos.x < b.pos.x+b.Mass && p.pos.x > b.pos.x-b.Mass)
+                            &&(p.pos.y < b.pos.y + b.Mass && p.pos.y > b.pos.y-b.Mass))
+                        {
+                            p.alive = false;
+                        }
+                    }
+                }
 
                 //if planet collides with blackhole
                 //spaceEntity.alive = false;
