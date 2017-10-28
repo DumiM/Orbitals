@@ -17,11 +17,10 @@ namespace MyGame
         {
         }
 
-        public override void Render(Color clr)
+        public override void Render()
         {
             //draw itself
-            clr = Color.Black;
-            SwinGame.FillCircle(clr, pos.asPoint2D(), (int) Mass);
+            SwinGame.FillCircle(Color.Black, pos.asPoint2D(), (int) Mass);
         }
     }
 }

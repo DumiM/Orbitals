@@ -9,12 +9,13 @@ namespace MyGame
     {
         public List<Vector2D> lines;
 
-        public Planet(Vector2D aPos, double aMass) : base(aPos, aMass)
+        public Planet(Vector2D aPos, double aMass, Color colour) : base(aPos, aMass)
         {
             lines = new List<Vector2D>();
+            clr = colour;
         }
         
-        public override void Render(Color clr)
+        public override void Render()
         {
             //add it's current position to the line array
             lines.Add(pos);

@@ -10,6 +10,8 @@ namespace MyGame
         public Vector2D pos;
         public Vector2D vel;
 
+        public Color clr;
+
         public SpaceEntity(Vector2D aPos, double aMass)
         {
             // Keep initial values
@@ -37,6 +39,6 @@ namespace MyGame
             pos += DT * vel;
         }
 
-        public abstract void Render(Color clr);
+        public abstract void Render();
     }
 }

@@ -20,7 +20,7 @@ namespace MyGame
         public List<SpaceEntity> SpaceEntities;
 
         public int count; //count on the clicks
-        private Color clr; //colour of the current planet
+        public Color clr; //colour of the current planet
 
         public Game()
         {
@@ -124,7 +124,7 @@ namespace MyGame
                     var vel = (input.vStart - MousePos) / 10;
 
                     //line added with the properties of the planet
-                    var l = new Line(MousePos, 15);
+                    var l = new Line(MousePos, 15, clr);
                     l.vel = vel;
                     List<SpaceEntity> lines = new List<SpaceEntity>();
                     lines.Add(l);
@@ -138,7 +138,7 @@ namespace MyGame
                     {
                         Calculate.Acceleration(lines);
                         lines[0].Update(0.5);
-                        lines[0].Render(clr);
+                        lines[0].Render();
 
                     }
 
@@ -153,13 +153,13 @@ namespace MyGame
                     //the velocity of the planet relative to the intial click position
                     var vel = (input.vStart - MousePos) / 10;
 
-                    var p = new Planet(MousePos, 15);
+                    var p = new Planet(MousePos, 15, clr);
                     p.vel = vel;
                     SpaceEntities.Add(p);
                 }
 
             foreach (var spaceEntity in SpaceEntities)
-                spaceEntity.Render(clr); //tells each space entity to render itself
+                spaceEntity.Render(); //tells each space entity to render itself
             
             SwinGame.RefreshScreen();
         }
