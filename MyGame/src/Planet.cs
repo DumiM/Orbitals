@@ -17,12 +17,18 @@ namespace MyGame
         
         public override void Render()
         {
-            //add it's current position to the line array
-            lines.Add(pos);
-
             //draw itself
             SwinGame.FillCircle(clr, pos.asPoint2D(), (int)Mass);
 
+            //add it's current position to the line array
+            lines.Add(pos);
+            //Render the line
+            RenderLines();
+
+        }
+
+        public void RenderLines()
+        {
             //length of the line
             //increase/decrease the value to control length
             var count = lines.Count - 1000;
@@ -31,7 +37,7 @@ namespace MyGame
                 // remove that number of items from the start of the list
                 lines.RemoveRange(0, count);
             }
-            
+
             //draws the line using positions sotred in the array
             foreach (Vector2D l in lines)
             {

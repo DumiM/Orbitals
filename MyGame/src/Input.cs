@@ -1,4 +1,5 @@
-﻿using SwinGameSDK;
+﻿using System.Collections.Generic;
+using SwinGameSDK;
 
 namespace MyGame
 {
@@ -45,6 +46,21 @@ namespace MyGame
                     return vEnd;
                 }
             return null;
+        }
+
+        public void GetKey(Dictionary<string,bool> status)
+        {
+            if (SwinGame.KeyTyped(KeyCode.vk_p))
+            {
+                status["paused"] = !status["paused"];
+            }
+            if (SwinGame.KeyTyped(KeyCode.vk_b))
+            {
+            }
+            if (SwinGame.KeyTyped(KeyCode.vk_o))
+            {
+                status["overlap"] = !status["overlap"];
+            }
         }
     }
 }

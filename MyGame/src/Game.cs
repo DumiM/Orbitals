@@ -11,7 +11,9 @@ namespace MyGame
         private readonly Timer _gameTime;
         private uint _lastTicks;
 
-        private readonly bool paused;
+        //contains the statuses of the game
+        //pause, overlap
+        public Dictionary<string, bool> status;
 
         public Input input;
         public Vector2D MousePos;
@@ -25,8 +27,10 @@ namespace MyGame
 
         public Game()
         {
-            Running = true;
-            paused = false;
+            status = new Dictionary<string, bool>();
+            status.Add("running", true);
+            status.Add("paused", false);
+            status.Add("overlap", false);
 
             //start the timer
             _gameTime = SwinGame.CreateTimer();
@@ -60,30 +64,27 @@ namespace MyGame
 
             _lastTicks = SwinGame.TimerTicks(_gameTime);
         }
-
-        public bool Running { get; private set; }
-
-
+        
         public void Update()
         {
             //records all user inputs
             SwinGame.ProcessEvents();
             if (SwinGame.WindowCloseRequested())
-                Running = false;
+                status["running"] = false;
 
-            // if key p is pressed to pause
-            if (SwinGame.KeyTyped(KeyCode.vk_p))
-                TogglePause();
-
+            
             // how much time has passed
             var currentTicks = SwinGame.TimerTicks(_gameTime);
             double dt = currentTicks - _lastTicks;
             _lastTicks = currentTicks;
 
-            MousePos = input.GetInput(); //get mouse status and position
             
-            if (!paused)
+            input.GetKey(status);
+            
+            if (!status["paused"])
             {
+                MousePos = input.GetInput(); //get mouse status and position
+
                 // the length of time between each calculation
                 //decrease denominator for faster running
                 dt = dt / 100.0;
@@ -95,23 +96,14 @@ namespace MyGame
                 foreach (var spaceEntity in SpaceEntities)
                     spaceEntity.Update(dt);
 
+                if (status["overlap"])
+                    ToggleOverlap();
                 
-                foreach (var p in SpaceEntities.OfType<Planet>())
-                {
-                    foreach(var b in SpaceEntities.OfType<Blackhole>())
-                    {
-                        if ((p.pos.x < b.pos.x+b.Mass && p.pos.x > b.pos.x-b.Mass)
-                            &&(p.pos.y < b.pos.y + b.Mass && p.pos.y > b.pos.y-b.Mass))
-                        {
-                            p.alive = false;
-                        }
-                    }
-                }
-
                 //if planet collides with blackhole
                 //spaceEntity.alive = false;
                 SpaceEntities.RemoveAll(s => !s.alive); //remove all space entities that arent alive
             }
+            TogglePause();
         }
 
         public void Render()
@@ -152,7 +144,7 @@ namespace MyGame
                     for (int i = 0; i < 100; i++)
                     {
                         Calculate.Acceleration(lines);
-                        lines[0].Update(0.5);
+                        lines[0].Update(0.5); //length between each dot
                         lines[0].Render();
 
                     }
@@ -182,13 +174,29 @@ namespace MyGame
         //when pressed key p
         public void TogglePause()
         {
-            //    // pause ourselves
-            //    paused = !paused;
-            //    SwinGame.PauseTimer(_gameTime);
-            //    // stop any balls flying also ... needed?
-            //    foreach (var spaceEntity in SpaceEntities)
-            //        spaceEntity.paused = paused;
-            //    Console.WriteLine("Paused: " + paused);
+            // pause ourselves
+            //status["paused"] = !status["paused"];
+            //SwinGame.PauseTimer(_gameTime);
+            foreach (var spaceEntity in SpaceEntities.OfType<Planet>())
+            {
+                spaceEntity.paused = status["paused"];
+            }
+
+        }
+
+        public void ToggleOverlap()
+        {
+            foreach (var p in SpaceEntities.OfType<Planet>())
+            {
+                foreach (var b in SpaceEntities.OfType<Blackhole>())
+                {
+                    if ((p.pos.x < b.pos.x + b.Mass && p.pos.x > b.pos.x - b.Mass)
+                        && (p.pos.y < b.pos.y + b.Mass && p.pos.y > b.pos.y - b.Mass))
+                    {
+                        p.alive = false;
+                    }
+                }
+            }
         }
     }
 }
