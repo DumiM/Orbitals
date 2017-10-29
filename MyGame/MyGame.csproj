@@ -72,6 +72,7 @@
     <Compile Include="src\GameMain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Line.cs" />
+    <Compile Include="src\Panel.cs" />
     <Compile Include="src\Planet.cs" />
     <Compile Include="src\SpaceEntity.cs" />
     <Compile Include="src\Vector2D.cs" />

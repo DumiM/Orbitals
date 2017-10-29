@@ -20,6 +20,8 @@ namespace MyGame
         public Input input;
         public Vector2D MousePos;
 
+        public Panel panel;
+
         public List<SpaceEntity> SpaceEntities;
 
         //contains the statuses of the game
@@ -35,6 +37,7 @@ namespace MyGame
             status.Add("overlap", false);
             status.Add("blackhole", false);
 
+
             //start the timer
             _gameTime = SwinGame.CreateTimer();
             SwinGame.StartTimer(_gameTime);
@@ -42,7 +45,8 @@ namespace MyGame
 
             SpaceEntities = new List<SpaceEntity>();
 
-            SwinGame.OpenGraphicsWindow("Orbitals", 900, 500);
+            SwinGame.OpenGraphicsWindow("Orbitals", 1300, 700);
+            panel = new Panel();
 
             SwinGame.ClearScreen(Color.White);
 
@@ -100,7 +104,7 @@ namespace MyGame
         public void Render()
         {
             SwinGame.ClearScreen(Color.White);
-
+            
             //if mouse is down
             //and not released yet
             if (MousePos != null)
@@ -108,7 +112,7 @@ namespace MyGame
                 {
                     if (status["blackhole"])
                     {
-                        SwinGame.FillCircle(Color.Black, MousePos.asPoint2D(), 30);
+                        SwinGame.FillCircle(SwinGame.HSBColor((float)0.63, (float)0.21, (float)0.30), MousePos.asPoint2D(), 30);
                     }
                     else
                     {
@@ -175,6 +179,9 @@ namespace MyGame
 
             foreach (var spaceEntity in SpaceEntities)
                 spaceEntity.Render(); //tells each space entity to render itself
+
+
+            panel.Draw(status);
 
             SwinGame.RefreshScreen();
         }
