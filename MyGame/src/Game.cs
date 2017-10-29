@@ -24,19 +24,19 @@ namespace MyGame
 
         public List<SpaceEntity> SpaceEntities;
 
+        public int size; //space entity size
+        public Dictionary<int, int> blackholeSizes;
+        public Dictionary<int, int> planetSizes;
+
         //contains the statuses of the game
         //pause, overlap, lackhole status
         public Dictionary<string, bool> status;
 
         public Game()
         {
-            //initialising the game statuses
-            status = new Dictionary<string, bool>();
-            status.Add("running", true);
-            status.Add("paused", false);
-            status.Add("overlap", false);
-            status.Add("blackhole", false);
-
+            //initialise all game variables
+            //including statuses, blackhole and planet sizes
+            InitialiseVariables();
 
             //start the timer
             _gameTime = SwinGame.CreateTimer();
@@ -104,7 +104,7 @@ namespace MyGame
         public void Render()
         {
             SwinGame.ClearScreen(Color.White);
-            
+            size = input.GetSize(size);
             //if mouse is down
             //and not released yet
             if (MousePos != null)
@@ -112,7 +112,7 @@ namespace MyGame
                 {
                     if (status["blackhole"])
                     {
-                        SwinGame.FillCircle(SwinGame.HSBColor((float)0.63, (float)0.21, (float)0.30), MousePos.asPoint2D(), 30);
+                        SwinGame.FillCircle(SwinGame.HSBColor((float)0.63, (float)0.21, (float)0.30), MousePos.asPoint2D(), blackholeSizes[size]);
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace MyGame
                         }
                         count += 1;
 
-                        SwinGame.FillCircle(clr, MousePos.asPoint2D(), 15); //draws the planet
+                        SwinGame.FillCircle(clr, MousePos.asPoint2D(), planetSizes[size]); //draws the planet
 
                         //velocity of the planet once it's launched
                         var vel = (input.vStart - MousePos) / 10;
@@ -158,7 +158,7 @@ namespace MyGame
                 {
                     if (status["blackhole"])
                     {
-                        SpaceEntities.Add(new Blackhole(MousePos, 30));
+                        SpaceEntities.Add(new Blackhole(MousePos, blackholeSizes[size]));
                     }
                     else
                     {
@@ -167,7 +167,7 @@ namespace MyGame
                         //the velocity of the planet relative to the intial click position
                         var vel = (input.vStart - MousePos) / 10;
 
-                        var p = new Planet(MousePos, 15, clr);
+                        var p = new Planet(MousePos, planetSizes[size], clr);
                         p.vel = vel;
                         SpaceEntities.Add(p);
                     }
@@ -181,7 +181,7 @@ namespace MyGame
                 spaceEntity.Render(); //tells each space entity to render itself
 
 
-            panel.Draw(status);
+            panel.Draw(status, size);//draws panel
 
             SwinGame.RefreshScreen();
         }
@@ -213,6 +213,32 @@ namespace MyGame
                     if (SwinGame.PointInCircle(input.GetDelete().asPoint2D(),
                         (float) b.pos.x, (float) b.pos.y, (float) b.Mass))
                         b.alive = false;
+        }
+
+        public void InitialiseVariables()
+        {
+            //initialising the game statuses
+            status = new Dictionary<string, bool>();
+            status.Add("running", true);
+            status.Add("paused", false);
+            status.Add("overlap", false);
+            status.Add("blackhole", false);
+
+            size = 2; //default size
+
+            //blackhole masses
+            blackholeSizes = new Dictionary<int, int>();
+            for (int i = 1; i< 4; i++)
+            {
+                blackholeSizes.Add(i, 20 + i * 10);
+            }
+
+            //planet masses
+            planetSizes = new Dictionary<int, int>();
+            for (int i = 1; i < 4; i++)
+            {
+                planetSizes.Add(i, 10 + i * 5);
+            }
         }
     }
 }

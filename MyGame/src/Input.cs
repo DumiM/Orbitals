@@ -79,5 +79,15 @@ namespace MyGame
             if (SwinGame.KeyTyped(KeyCode.vk_o))
                 status["overlap"] = !status["overlap"];
         }
+        public int GetSize(int size)
+        {
+            if (SwinGame.KeyTyped(KeyCode.vk_1))
+                return 1;
+            if (SwinGame.KeyTyped(KeyCode.vk_2))
+                return 2;
+            if (SwinGame.KeyTyped(KeyCode.vk_3))
+                return 3;
+            return size;
+        }
     }
 }

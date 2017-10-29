@@ -28,7 +28,7 @@ namespace MyGame
             LoadText("/Docs/help_text.txt", helpText);
         }
 
-        public void Draw(Dictionary<string, bool> status)
+        public void Draw(Dictionary<string, bool> status, int size)
         {
             SwinGame.FillRectangle(clr, x, 0, width, height); // draws the panel
 
@@ -51,10 +51,21 @@ namespace MyGame
             SwinGame.DrawText("Simulator Variables", Color.White, SwinGame.LoadFont("Arial", 18), x + width / 6,
                 (float) (height / 1.4));
             //darws them using status dictionary key and value
-            for (var i = 1; i < status.Count; i++)
+            for (var i = 1; i < status.Count + 1; i++)
             {
                 var texty = (float) (height / 1.3) + i * height / 35;
                 var textx = x + width / 5;
+
+                //if last iteration draw size
+                if (i == status.Count)
+                {
+                    SwinGame.DrawText("size", Color.White, SwinGame.LoadFont("Arial", 14), textx,
+                        texty);
+                    SwinGame.DrawText(size.ToString(), Color.White, SwinGame.LoadFont("Arial", 14),
+                        textx + 100, texty);
+                    return;
+                }
+                //else draw rest of the variables
                 SwinGame.DrawText(status.ElementAt(i).Key, Color.White, SwinGame.LoadFont("Arial", 14), textx,
                     texty);
                 SwinGame.DrawText(status.ElementAt(i).Value.ToString(), Color.White, SwinGame.LoadFont("Arial", 14),
