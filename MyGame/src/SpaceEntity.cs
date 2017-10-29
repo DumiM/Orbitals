@@ -5,14 +5,14 @@ namespace MyGame
     public abstract class SpaceEntity
     {
         public bool alive = true;
+
+        public Color clr;
         public bool paused;
 
         public Vector2D pos;
         public Vector2D vel;
 
-        public Color clr;
-
-        public SpaceEntity(Vector2D aPos, double aMass)
+        protected SpaceEntity(Vector2D aPos, double aMass)
         {
             // Keep initial values
             pos = aPos;

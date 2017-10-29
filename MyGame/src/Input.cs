@@ -7,7 +7,7 @@ namespace MyGame
     {
         public int count;
         public bool released;
-        public Vector2D vStart, vCurrent, vEnd;
+        public Vector2D vStart, vCurrent, vEnd, vDelete;
 
         public Input()
         {
@@ -21,9 +21,11 @@ namespace MyGame
             if (SwinGame.MouseDown(MouseButton.LeftButton))
             {
                 //store current mouse position as a vector when mouse is down
-                vCurrent = new Vector2D();
-                vCurrent.x = SwinGame.MousePositionAsVector().X;
-                vCurrent.y = SwinGame.MousePositionAsVector().Y;
+                vCurrent = new Vector2D
+                {
+                    x = SwinGame.MousePositionAsVector().X,
+                    y = SwinGame.MousePositionAsVector().Y
+                };
                 released = false;
 
                 //if its the first time of this loop
@@ -38,9 +40,11 @@ namespace MyGame
                 //when released, record the mouse position as a vector
                 if (SwinGame.MouseUp(MouseButton.LeftButton))
                 {
-                    vEnd = new Vector2D();
-                    vEnd.x = SwinGame.MousePositionAsVector().X;
-                    vEnd.y = SwinGame.MousePositionAsVector().Y;
+                    vEnd = new Vector2D
+                    {
+                        x = SwinGame.MousePositionAsVector().X,
+                        y = SwinGame.MousePositionAsVector().Y
+                    };
                     released = true;
                     count = 0;
                     return vEnd;
@@ -48,19 +52,32 @@ namespace MyGame
             return null;
         }
 
-        public void GetKey(Dictionary<string,bool> status)
+        //checks if a delete was requested
+        //if it was, returns the position as a vector
+        public Vector2D GetDelete()
+        {
+            if (SwinGame.MouseClicked(MouseButton.RightButton))
+            {
+                vDelete = new Vector2D
+                {
+                    x = SwinGame.MousePositionAsVector().X,
+                    y = SwinGame.MousePositionAsVector().Y
+                };
+                return vDelete;
+            }
+            return null;
+        }
+
+        //changes the game's status varibles
+        //with key presses
+        public void GetKey(Dictionary<string, bool> status)
         {
             if (SwinGame.KeyTyped(KeyCode.vk_p))
-            {
                 status["paused"] = !status["paused"];
-            }
             if (SwinGame.KeyTyped(KeyCode.vk_b))
-            {
-            }
+                status["blackhole"] = !status["blackhole"];
             if (SwinGame.KeyTyped(KeyCode.vk_o))
-            {
                 status["overlap"] = !status["overlap"];
-            }
         }
     }
 }

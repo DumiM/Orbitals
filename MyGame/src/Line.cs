@@ -1,13 +1,12 @@
-﻿using SwinGameSDK;
-using System.Collections.Generic;
-using System;
-
+﻿using System.Collections.Generic;
+using SwinGameSDK;
 
 namespace MyGame
 {
     public class Line : SpaceEntity
     {
         public List<Vector2D> lines;
+
         public Line(Vector2D aPos, double aMass, Color colour) : base(aPos, aMass)
         {
             clr = colour;
