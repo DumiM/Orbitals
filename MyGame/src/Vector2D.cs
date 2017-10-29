@@ -17,9 +17,11 @@ namespace MyGame
         //converts vector2d to point2d for easier swingame code
         public Point2D asPoint2D()
         {
-            var value = new Point2D();
-            value.X = (float) x;
-            value.Y = (float) y;
+            var value = new Point2D
+            {
+                X = (float) x,
+                Y = (float) y
+            };
             return value;
         }
 

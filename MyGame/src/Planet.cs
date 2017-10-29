@@ -1,7 +1,5 @@
-﻿using SwinGameSDK;
-using System.Collections.Generic;
-using System;
-
+﻿using System.Collections.Generic;
+using SwinGameSDK;
 
 namespace MyGame
 {
@@ -14,17 +12,16 @@ namespace MyGame
             lines = new List<Vector2D>();
             clr = colour;
         }
-        
+
         public override void Render()
         {
             //draw itself
-            SwinGame.FillCircle(clr, pos.asPoint2D(), (int)Mass);
+            SwinGame.FillCircle(clr, pos.asPoint2D(), (int) Mass);
 
             //add it's current position to the line array
             lines.Add(pos);
             //Render the line
             RenderLines();
-
         }
 
         public void RenderLines()
@@ -33,16 +30,11 @@ namespace MyGame
             //increase/decrease the value to control length
             var count = lines.Count - 1000;
             if (count > 0)
-            {
-                // remove that number of items from the start of the list
                 lines.RemoveRange(0, count);
-            }
 
             //draws the line using positions sotred in the array
-            foreach (Vector2D l in lines)
-            {
+            foreach (var l in lines)
                 SwinGame.FillCircle(clr, l.asPoint2D(), 1);
-            }
         }
     }
 }
