@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MyGame.Blackhole">
+    <Position X="11.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>src\Blackhole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyGame.Calculate">
+    <Position X="15.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECAAAAAA=</HashCode>
+      <FileName>src\Calculate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyGame.Game">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAEAAIAAAAAAAAAAAACAAQSAABAARSAAIIAACA=</HashCode>
+      <FileName>src\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_input" />
+      <Field Name="_panel" />
+      <Field Name="MousePos" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_spaceEntities" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyGame.GameMain">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>src\GameMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyGame.Input">
+    <Position X="6.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAACAAAEAAEQAgAAAAAEAAICAAABAAAA=</HashCode>
+      <FileName>src\Input.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="VCurrent" />
+      <Field Name="VDelete" />
+      <Field Name="VEnd" />
+      <Field Name="VStart" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyGame.Line">
+    <Position X="13.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>src\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyGame.Panel">
+    <Position X="12.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAiAAgAAAAAAAAAAABQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Panel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MyGame.Planet">
+    <Position X="16" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAACAACABAAAAAAAAA=</HashCode>
+      <FileName>src\Planet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="Lines" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="MyGame.SpaceEntity">
+    <Position X="13.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAACAAAIAABAAAIAAAABAAAACgIAA=</HashCode>
+      <FileName>src\SpaceEntity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="pos" />
+      <Field Name="vel" />
+      <Property Name="Accel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="MyGame.Vector2D">
+    <Position X="9.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAYAUAAAlAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>src\Vector2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

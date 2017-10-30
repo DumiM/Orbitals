@@ -36,3 +36,6 @@ Unit tests have been implemented and can be found in the MyGameTests folder
 * Math/Physics help - https://stackoverflow.com/questions/23877656/gravity-and-many-particles
 * Research - https://en.wikipedia.org/wiki/N-body_problem
 
+## UML
+![Uml](MyGame/ClassDiagram1.png)
+
