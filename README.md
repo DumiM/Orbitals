@@ -12,7 +12,7 @@ Launch planets with a your mouse, and try to get them into stable orbits around 
 
 ### Prerequisites
 
-.NET, dotNET frameworks
+.NET, Windows OS
 
 ## The tests
 
@@ -36,6 +36,12 @@ Unit tests have been implemented and can be found in the MyGameTests folder
 * Math/Physics help - https://stackoverflow.com/questions/23877656/gravity-and-many-particles
 * Research - https://en.wikipedia.org/wiki/N-body_problem
 
+## Game Screen
+![Game_screenshot](Sprints/Sprint_4/sprint_4_end.JPG)
+
+
 ## UML
 ![Uml](MyGame/ClassDiagram1.png)
+
+
 
