@@ -4,7 +4,7 @@
 ##New features
 + Gets input from the user and allows them to drag and release to launch planets
 + Blackholes do not move, allowing the user to make their planets orbit around them
-+ ![screenshot](prints/Sprint_2/sprint_2_end.JPG)
++ ![screenshot](sprint_2_end.JPG)
 
 ##Features failed to add
 + Not many unit tests could be implemented since most functions were dependaant on swingame

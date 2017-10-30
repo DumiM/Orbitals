@@ -20,4 +20,4 @@
 	* Stop planets from overlapping over each other - 1.5 hours
 
 ##Trello screenshot
-![trello_screenshot](Sprints/Sprint_3/sprint_3_start_trello.JPG)
+![trello_screenshot](sprint_3_start_trello.JPG)

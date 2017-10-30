@@ -8,7 +8,7 @@
 	* A design decision was made to keep the overlapping planets as opposed to the user story suggested prior to the sprint
 
 ##Trello Screenshot
-![trello_end_screenshot](Sprints/Sprint_2/sprint_2_end_trello.JPG)
+![trello_end_screenshot](sprint_2_end_trello.JPG)
 
 ##Toggl Report
 + A Toogl time report PDF can be found in this folder

@@ -8,7 +8,7 @@
 	* Forgot to branch when adding new feature
 
 ##Trello Screenshot
-![trello_mid_screenshot](Sprints/Sprint_2/sprint_2_end_trello.JPG)
+![trello_mid_screenshot](sprint_2_end_trello.JPG)
 
 ##Toggl Report
 + A Toogl time report PDF can be found in this folder

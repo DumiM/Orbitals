@@ -6,7 +6,7 @@
 + Dahsed lines dynamically predicts the path of the planet before it is launched.
 + Solid lines traces the path of moving planets
 + planets are deleted when they hit a blackhole
-+ ![screenshot](prints/Sprint_2/sprint_3_end.JPG)
++ ![screenshot](sprint_3_end.JPG)
 
 ##Features failed to add
 + Planets overlapping each other was not fixed. This was a design decision, as the product owner I have decided to leave it.

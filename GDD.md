@@ -19,4 +19,3 @@ The final gmae screen wil have these features:
 + Differenty coloured planets travelling at different velocities conforming to gravity
 + Coloured traces of the planets' paths
 + Aiming arc that helps the user plan the trajectory
-
