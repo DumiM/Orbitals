@@ -9,7 +9,7 @@ namespace MyGame
             clr = SwinGame.HSBColor((float) 0.63, (float) 0.21, (float) 0.30);
         }
 
-        public override void Update(double DT)
+        public override void Update(double dt)
         {
         }
 

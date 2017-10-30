@@ -6,7 +6,7 @@ namespace MyGame
         {
             var game = new Game();
 
-            while (game.status["running"])
+            while (game.Status["running"])
             {
                 game.Update();
                 game.Render();

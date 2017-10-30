@@ -5,15 +5,15 @@ namespace MyGame
 {
     public class Input
     {
-        public int count;
-        public bool released;
-        public Vector2D vStart, vCurrent, vEnd, vDelete;
+        private int _count;
+        public bool Released;
+        public Vector2D VStart, VCurrent, VEnd, VDelete;
 
         public Input()
         {
-            released = true;
-            count = 0;
-            vStart = new Vector2D();
+            Released = true;
+            _count = 0;
+            VStart = new Vector2D();
         }
 
         public Vector2D GetInput()
@@ -21,33 +21,33 @@ namespace MyGame
             if (SwinGame.MouseDown(MouseButton.LeftButton))
             {
                 //store current mouse position as a vector when mouse is down
-                vCurrent = new Vector2D
+                VCurrent = new Vector2D
                 {
                     x = SwinGame.MousePositionAsVector().X,
                     y = SwinGame.MousePositionAsVector().Y
                 };
-                released = false;
+                Released = false;
 
                 //if its the first time of this loop
                 //make this position the starting position of the planet
-                if (count == 0)
-                    vStart = vCurrent;
-                count += 1;
-                return vCurrent;
+                if (_count == 0)
+                    VStart = VCurrent;
+                _count += 1;
+                return VCurrent;
             }
 
-            if (!released)
+            if (!Released)
                 //when released, record the mouse position as a vector
                 if (SwinGame.MouseUp(MouseButton.LeftButton))
                 {
-                    vEnd = new Vector2D
+                    VEnd = new Vector2D
                     {
                         x = SwinGame.MousePositionAsVector().X,
                         y = SwinGame.MousePositionAsVector().Y
                     };
-                    released = true;
-                    count = 0;
-                    return vEnd;
+                    Released = true;
+                    _count = 0;
+                    return VEnd;
                 }
             return null;
         }
@@ -58,12 +58,12 @@ namespace MyGame
         {
             if (SwinGame.MouseClicked(MouseButton.RightButton))
             {
-                vDelete = new Vector2D
+                VDelete = new Vector2D
                 {
                     x = SwinGame.MousePositionAsVector().X,
                     y = SwinGame.MousePositionAsVector().Y
                 };
-                return vDelete;
+                return VDelete;
             }
             return null;
         }

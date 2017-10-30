@@ -5,6 +5,7 @@
 ##Sprint 1 User Stories
 + As a player, I want more ability to control aspects of the game such as toggling pausing and overlapping
 + As a player I want to create my own blackole where I like
++ As a player, I want the ability to control the size of my objects
 + As a player I want to see the game's status and a help tips
 + As a developer, I want to make sure the code is up to standard with good code documentation
 + As a developer, I want to add more unit tests for all the newly implemented features
@@ -17,6 +18,8 @@
 	* use keyboard inputs to allow toggling of pause and overlapping 1 hour
 * As a player I want to create my own blackole where I like
 	* Implement the ability to add and delete blackholes using the mouse 2.5 hours
+* As a player, I want the ability to control the size of my objects
+	* Implement size control using keyboard input - 1 hour
 * As a player I want to see the game's status and a help tips
 	* Add a screen to display a help guide 1 hour
 	* Add a screen to display the status of the game variables 0.5 hours

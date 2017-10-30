@@ -5,11 +5,11 @@ namespace MyGame
 {
     public class Planet : SpaceEntity
     {
-        public List<Vector2D> lines;
+        public List<Vector2D> Lines;
 
         public Planet(Vector2D aPos, double aMass, Color colour) : base(aPos, aMass)
         {
-            lines = new List<Vector2D>();
+            Lines = new List<Vector2D>();
             clr = colour;
         }
 
@@ -19,7 +19,7 @@ namespace MyGame
             SwinGame.FillCircle(clr, pos.asPoint2D(), (int) Mass);
 
             //add it's current position to the line array
-            lines.Add(pos);
+            Lines.Add(pos);
             //Render the line
             RenderLines();
         }
@@ -28,12 +28,12 @@ namespace MyGame
         {
             //length of the line
             //increase/decrease the value to control length
-            var count = lines.Count - 1000;
+            var count = Lines.Count - 1000;
             if (count > 0)
-                lines.RemoveRange(0, count);
+                Lines.RemoveRange(0, count);
 
             //draws the line using positions sotred in the array
-            foreach (var l in lines)
+            foreach (var l in Lines)
                 SwinGame.FillCircle(clr, l.asPoint2D(), 1);
         }
     }

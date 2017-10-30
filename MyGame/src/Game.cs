@@ -11,26 +11,25 @@ namespace MyGame
         private readonly Timer _gameTime;
 
         private uint _lastTicks;
-        public Color clr; //colour of the current planet
+        private Color _clr; //colour of the current planet
 
-        public int count; //count on the clicks
+        private int _count; //count on the clicks
 
-        public double dt;
-
-        public Input input;
+        private readonly Input _input;
         public Vector2D MousePos;
 
-        public Panel panel;
+        private readonly Panel _panel;
 
-        public List<SpaceEntity> SpaceEntities;
+        private readonly List<SpaceEntity> _spaceEntities;
 
-        public int size; //space entity size
-        public Dictionary<int, int> blackholeSizes;
-        public Dictionary<int, int> planetSizes;
+        private int _size; //space entity size
+        private Dictionary<int, int> _blackholeSizes;
+        private Dictionary<int, int> _planetSizes;
 
         //contains the statuses of the game
         //pause, overlap, lackhole status
-        public Dictionary<string, bool> status;
+
+        public Dictionary<string, bool> Status { get; private set; }
 
         public Game()
         {
@@ -43,17 +42,17 @@ namespace MyGame
             SwinGame.StartTimer(_gameTime);
 
 
-            SpaceEntities = new List<SpaceEntity>();
+            _spaceEntities = new List<SpaceEntity>();
 
             SwinGame.OpenGraphicsWindow("Orbitals", 1300, 700);
-            panel = new Panel();
+            _panel = new Panel();
 
             SwinGame.ClearScreen(Color.White);
 
-            input = new Input();
+            _input = new Input();
             MousePos = null;
 
-            count = 0;
+            _count = 0;
 
             _lastTicks = SwinGame.TimerTicks(_gameTime);
         }
@@ -63,7 +62,7 @@ namespace MyGame
             //records all user inputs
             SwinGame.ProcessEvents();
             if (SwinGame.WindowCloseRequested())
-                status["running"] = false;
+                Status["running"] = false;
 
 
             // how much time has passed
@@ -72,30 +71,30 @@ namespace MyGame
             _lastTicks = currentTicks;
 
 
-            input.GetKey(status);
+            _input.GetKey(Status);
 
-            if (!status["paused"])
+            if (!Status["paused"])
             {
-                MousePos = input.GetInput(); //get mouse status and position
+                MousePos = _input.GetInput(); //get mouse status and position
 
                 // the length of time between each calculation
                 //decrease denominator for faster running
                 dt = dt / 100.0;
 
                 //calculates relative accelerations of each space entity
-                Calculate.Acceleration(SpaceEntities);
+                Calculate.Acceleration(_spaceEntities);
 
                 //update each space entity's details
-                foreach (var spaceEntity in SpaceEntities)
+                foreach (var spaceEntity in _spaceEntities)
                     spaceEntity.Update(dt);
 
                 //enable/disable overlapping
-                if (status["overlap"])
+                if (Status["overlap"])
                     ToggleOverlap();
 
                 //if planet collides with blackhole
                 //spaceEntity.alive = false;
-                SpaceEntities.RemoveAll(s => !s.alive); //remove all space entities that arent alive
+                _spaceEntities.RemoveAll(s => !s.alive); //remove all space entities that arent alive
             }
             //pause game
             TogglePause();
@@ -104,42 +103,42 @@ namespace MyGame
         public void Render()
         {
             SwinGame.ClearScreen(Color.White);
-            size = input.GetSize(size);
+            _size = _input.GetSize(_size);
             //if mouse is down
             //and not released yet
             if (MousePos != null)
-                if (!input.released)
+                if (!_input.Released)
                 {
-                    if (status["blackhole"])
+                    if (Status["blackhole"])
                     {
-                        SwinGame.FillCircle(SwinGame.HSBColor((float)0.63, (float)0.21, (float)0.30), MousePos.asPoint2D(), blackholeSizes[size]);
+                        SwinGame.FillCircle(SwinGame.HSBColor((float)0.63, (float)0.21, (float)0.30), MousePos.asPoint2D(), _blackholeSizes[_size]);
                     }
                     else
                     {
                         //if it is the first iteration
                         //decide the color of the planet and it's lines
                         //using hsb with a random hue
-                        if (count == 0)
+                        if (_count == 0)
                         {
                             var rnd = new Random();
-                            clr = SwinGame.HSBColor((float) rnd.Next(0, 100) / 100, (float) 0.5, (float) 0.7);
+                            _clr = SwinGame.HSBColor((float) rnd.Next(0, 100) / 100, (float) 0.5, (float) 0.7);
                         }
-                        count += 1;
+                        _count += 1;
 
-                        SwinGame.FillCircle(clr, MousePos.asPoint2D(), planetSizes[size]); //draws the planet
+                        SwinGame.FillCircle(_clr, MousePos.asPoint2D(), _planetSizes[_size]); //draws the planet
 
                         //velocity of the planet once it's launched
-                        var vel = (input.vStart - MousePos) / 10;
+                        var vel = (_input.VStart - MousePos) / 10;
 
                         //line added with the properties of the planet
-                        var l = new Line(MousePos, 15, clr);
+                        var l = new Line(MousePos, 15, _clr);
                         l.vel = vel;
                         var lines = new List<SpaceEntity>();
                         lines.Add(l);
                         //the other spaceentities are added to the same list
                         //since the path is predicted dynamically,
                         //depending on other objects in the game
-                        lines.AddRange(SpaceEntities);
+                        lines.AddRange(_spaceEntities);
 
                         //simulate the planet's release from the current position in to the future
                         for (var i = 0; i < 100; i++)
@@ -150,38 +149,38 @@ namespace MyGame
                         }
 
                         //draws line from intial click position to current position
-                        SwinGame.DrawLine(Color.Grey, input.vStart.asPoint2D(), input.vCurrent.asPoint2D());
+                        SwinGame.DrawLine(Color.Grey, _input.VStart.asPoint2D(), _input.VCurrent.asPoint2D());
                     }
                 }
                 //when mouse is released, i.e when planet is launched
                 else
                 {
-                    if (status["blackhole"])
+                    if (Status["blackhole"])
                     {
-                        SpaceEntities.Add(new Blackhole(MousePos, blackholeSizes[size]));
+                        _spaceEntities.Add(new Blackhole(MousePos, _blackholeSizes[_size]));
                     }
                     else
                     {
-                        count = 0; //when released reset the counter
+                        _count = 0; //when released reset the counter
 
                         //the velocity of the planet relative to the intial click position
-                        var vel = (input.vStart - MousePos) / 10;
+                        var vel = (_input.VStart - MousePos) / 10;
 
-                        var p = new Planet(MousePos, planetSizes[size], clr);
+                        var p = new Planet(MousePos, _planetSizes[_size], _clr);
                         p.vel = vel;
-                        SpaceEntities.Add(p);
+                        _spaceEntities.Add(p);
                     }
                 }
 
             //check if any deletes were requested
-            if (status["blackhole"])
+            if (Status["blackhole"])
                 DeletBlackhole();
 
-            foreach (var spaceEntity in SpaceEntities)
+            foreach (var spaceEntity in _spaceEntities)
                 spaceEntity.Render(); //tells each space entity to render itself
 
 
-            panel.Draw(status, size);//draws panel
+            _panel.Draw(Status, _size);//draws panel
 
             SwinGame.RefreshScreen();
         }
@@ -190,8 +189,8 @@ namespace MyGame
         public void TogglePause()
         {
             //pause all space entities
-            foreach (var spaceEntity in SpaceEntities.OfType<Planet>())
-                spaceEntity.paused = status["paused"];
+            foreach (var spaceEntity in _spaceEntities.OfType<Planet>())
+                spaceEntity.paused = Status["paused"];
         }
 
 
@@ -199,45 +198,49 @@ namespace MyGame
         {
             //checks if any of the planets
             //is overlapping with any of the blacholes
-            foreach (var p in SpaceEntities.OfType<Planet>())
-            foreach (var b in SpaceEntities.OfType<Blackhole>())
+            foreach (var p in _spaceEntities.OfType<Planet>())
+            foreach (var b in _spaceEntities.OfType<Blackhole>())
                 if (SwinGame.PointInCircle(p.pos.asPoint2D(), (float) b.pos.x, (float) b.pos.y, (float) b.Mass))
                     p.alive = false;
         }
 
         public void DeletBlackhole()
         {
-            if (input.GetDelete() != null) //checks if a delete was requested
-                foreach (var b in SpaceEntities.OfType<Blackhole>())
-                    //checks whether the click position was inside a blackhole
-                    if (SwinGame.PointInCircle(input.GetDelete().asPoint2D(),
-                        (float) b.pos.x, (float) b.pos.y, (float) b.Mass))
-                        b.alive = false;
+            if (_input.GetDelete() == null) return;
+            foreach (var b in _spaceEntities.OfType<Blackhole>())
+                //checks whether the click position was inside a blackhole
+                if (SwinGame.PointInCircle(_input.GetDelete().asPoint2D(),
+                    (float) b.pos.x, (float) b.pos.y, (float) b.Mass))
+                    b.alive = false;
         }
 
         public void InitialiseVariables()
         {
             //initialising the game statuses
-            status = new Dictionary<string, bool>();
-            status.Add("running", true);
-            status.Add("paused", false);
-            status.Add("overlap", false);
-            status.Add("blackhole", false);
+            Status = new Dictionary<string, bool>
+            {
+                {"running", true},
+                {"paused", false},
+                {"overlap", false},
+                {"blackhole", false}
+            };
 
-            size = 2; //default size
+            _size = 2; //default size
 
             //blackhole masses
-            blackholeSizes = new Dictionary<int, int>();
+            _blackholeSizes = new Dictionary<int, int>();
             for (int i = 1; i< 4; i++)
             {
-                blackholeSizes.Add(i, 20 + i * 10);
+                //30, 40, 50
+                _blackholeSizes.Add(i, 20 + i * 10);
             }
 
             //planet masses
-            planetSizes = new Dictionary<int, int>();
+            _planetSizes = new Dictionary<int, int>();
             for (int i = 1; i < 4; i++)
             {
-                planetSizes.Add(i, 10 + i * 5);
+                //15,20,25
+                _planetSizes.Add(i, 10 + i * 5);
             }
         }
     }

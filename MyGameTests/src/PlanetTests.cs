@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using SwinGameSDK;
 
 namespace MyGame.Tests
 {
@@ -9,7 +10,7 @@ namespace MyGame.Tests
         public void PlanetUpdateTest()
         {
             var v = new Vector2D();
-            var p = new Planet(v, 0, 0, 0);
+            var p = new Planet(v, 15, Color.Black);
 
             //an acceleration vector
             var acc = new Vector2D();
