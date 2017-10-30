@@ -29,4 +29,4 @@
 * Produce UML diagram 1 hour
 
 ##Trello screenshot
-![trello_screenshot](Sprints/Sprint_4/sprint_4_start_trello.JPG)
+![trello_screenshot](sprint_4_start_trello.JPG)
